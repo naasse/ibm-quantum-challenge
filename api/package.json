@@ -1,0 +1,22 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "The API layer for working with our Pokedex",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naasse/ibm-quantum-challenge.git"
+  },
+  "author": "Nathan Asselstine",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/naasse/ibm-quantum-challenge/issues"
+  },
+  "homepage": "https://github.com/naasse/ibm-quantum-challenge#readme",
+  "dependencies": {
+    "@loopback/cli": "^2.13.0"
+  }
+}
