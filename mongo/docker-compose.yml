@@ -13,6 +13,7 @@ services:
     volumes:
       - ./init-db.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
       - ../pokemons.json:/docker-entrypoint-initdb.d/pokemons.json:ro
+      - ../invalid-pokemons.json:/docker-entrypoint-initdb.d/invalid-pokemons.json:ro
     # Forward the default port
     ports:
       - "27017:27017"

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "abc",
+    "name": "Bad ID!"
+  },
+  {
+    "id": "999"
+  },
+  {
+    "id": 1000
+  },
+  {
+    "name": "missing ID!"
+  },
+  {
+    "id": 1001,
+    "name": ""
+  },
+  {
+    "id": 1,
+    "name": "This is a duplicate"
+  }
+]
