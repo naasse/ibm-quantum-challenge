@@ -20,31 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a0ae3a53-0cf5-4c0c-96a7-c382a9cf080e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/api/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/__tests__/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/__tests__/acceptance/home-page.acceptance.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/__tests__/acceptance/ping.controller.acceptance.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/__tests__/acceptance/test-helper.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/application.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/controllers/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/controllers/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/controllers/ping.controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/controllers/pokemon.controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/datasources/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/models/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/openapi-spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/repositories/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/src/sequence.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ibm-quantum-challenge.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ibm-quantum-challenge.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/api/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/api/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentation/adr-2-nodejs-framework-choice.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/adr-2-nodejs-framework-choice.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentation/prerequisites.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/prerequisites.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/src/controllers/pokemon.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/api/src/controllers/pokemon.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/tsconfig.tsbuildinfo" beforeDir="false" afterPath="$PROJECT_DIR$/api/tsconfig.tsbuildinfo" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
