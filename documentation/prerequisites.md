@@ -50,9 +50,13 @@ PS C:\WINDOWS\system32> npm --version
 
 ## Node Modules
 
-Since we're going to use [LoopBack](https://loopback.io/), as well as other dependencies, let's install them now.
+I made use of a few global dependencies to start up new instances of the application.
+
+You only need these if the the intent is to rebuild from scratch. 
+Otherwise, `npm install` should get the necessary dependencies.
+
+[LoopBack](https://loopback.io/):
 
 ```cmd
-cd api
-npm install
+npm install -g @loopback/cli
 ```

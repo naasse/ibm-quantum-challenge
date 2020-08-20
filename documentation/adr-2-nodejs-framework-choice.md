@@ -2,7 +2,7 @@
 
 ## Context and Problem Statement
 
-I must choose the API layer technology. 
+I must choose the API layer technology.
 I must use a JavaScript framework, per the requirements.
 
 Primary choices to investigate are:
@@ -19,5 +19,5 @@ This is the preferred stack to use given the requirements, and per documentation
 
 ## Consequences
 
-* Loopback.io is driven by the OpenAPI spec, so we can begin with our API documentation
-* My Loopback.io experience is zero, so a non-trivial amount of time will be spent on research and setup 
+* Loopback.io automatically creates an OpenAPI spec, if we code to proper conventions
+* My Loopback.io experience is zero, so a non-trivial amount of time will be spent on research and setup
