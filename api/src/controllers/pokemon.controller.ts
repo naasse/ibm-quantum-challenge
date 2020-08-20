@@ -10,7 +10,7 @@ import {del, get, param, put, Request, Response, ResponseObject, RestBindings} f
 import {inject} from "@loopback/core";
 import {Filter, repository} from "@loopback/repository";
 import {PokemonRepository} from "../repositories";
-import {Pokemon} from "../models";
+import {Pokemon, PokemonRelations} from "../models";
 import * as http2 from "http2";
 import {HttpError} from "../representations";
 import {PokemonDeletionResponseSpec, PokemonListResponseSpec, PokemonResponseSpec} from "../specs";
@@ -52,24 +52,16 @@ export class PokemonController {
      * Get the the Pokemon with the specified ID.
      * GET /pokemon/{id}
      *
-     * @param {string} id the Pokemon ID.
+     * @param {number} id the Pokemon ID.
      * @param {Filter<Pokemon>} filter [optional] the filter to apply.
      * @return {ResponseObject} response object containing the pokemon with the specified ID.
      */
     @get(Routes.POKEMON, PokemonResponseSpec)
     async findById(
-        @param.path.string("id") id: string,
+        @param.path.number("id") id: number,
         @param.filter(Pokemon, {"exclude": "where"}) filter?: Filter<Pokemon>
     ): Promise<Pokemon | HttpError> {
-        if (isNil(filter)) {
-            filter = {};
-        }
-        // We're going to always apply a where clause ourselves.
-        // That allows us to find Pokemon by the external numeric ID, instead of the internal MongoDB ID
-        filter.where = {
-            "id": id
-        };
-        return this.repository.find(filter).then((response) => {
+        return this.getOne(id, filter).then((response) => {
             // If none were found, throw a 404 for the requested entity
             if (isEmpty(response)) {
                 // Not Found, throw a 404
@@ -101,50 +93,61 @@ export class PokemonController {
     // }
     //
 
+    // /**
+    //  * Update the Pokemon with the specified ID to toggle the favorite status.
+    //  * PUT /pokemon/{id}/favorite
+    //  *
+    //  * @param {string} id the Pokemon ID.
+    //  * @return {ResponseObject} response object containing the updated Pokemon.
+    //  */
+    // @put(Routes.POKEMON_FAVORITE, PokemonResponseSpec)
+    // async toggleFavoriteById(@param.path.number("id") id: number): Promise<Pokemon | HttpError> {
+    //     return this.repository.findById(id).then((response) => {
+    //         // TODO - update it
+    //         return response;
+    //     }).catch((err) => {
+    //         return this.handleError(err);
+    //     });
+    // }
+
     /**
-     * Update the Pokemon with the specified ID to toggle the favorite status.
-     * PUT /pokemon/{id}/favorite
+     * Delete the Pokemon with the specified ID.
+     * DELETE /pokemon/{id}
      *
-     * @param {string} id the Pokemon ID.
-     * @return {ResponseObject} response object containing the updated Pokemon.
+     * @param {number} id the Pokemon ID.
+     * @return {ResponseObject} an empty response.
      */
-    @put(Routes.POKEMON_FAVORITE, PokemonResponseSpec)
-    async toggleFavoriteById(@param.path.string("id") id: string): Promise<Pokemon | HttpError> {
-        return this.repository.findById(id).then((response) => {
-            // TODO - update it
-            return response;
+    @del('/pokemon/{id}', PokemonDeletionResponseSpec)
+    async deleteById(@param.path.number('id') id: number): Promise<void> {
+        // Since we're deleting by the internal ID,
+        // we can't use the CRUD repository delete interface methods immediately.
+        // Retrieve the specified entity then delete it.
+        await this.getOne(id).then((response) => {
+            // If none were found, throw a 404 for the requested entity
+            if (!isEmpty(response)) {
+                return this.repository.delete(response[0]);
+            }
         }).catch((err) => {
             return this.handleError(err);
         });
     }
 
     /**
-     * Delete the Pokemon with the specified ID.
-     * DELETE /pokemon/{id}
-     *
-     * @param {string} id the Pokemon ID.
-     * @return {ResponseObject} an empty response.
+     * Utility method for getting a Pokemon by the external number ID.
+     * @param {number} id the Pokemon ID to look for.
+     * @param {Filter<Pokemon>} filter [optional] the filter to apply.
      */
-    @del('/pokemon/{id}', PokemonDeletionResponseSpec)
-    async deleteById(@param.path.string('id') id: string): Promise<void> {
-        // Since we're deleting by the internal ID, we can't use the CRUD repository delete interface methods immediately.
-
-        // We're going to always apply a where clause ourselves.
-        // That allows us to find Pokemon by the external numeric ID, instead of the internal MongoDB ID
-        const filter = {
-            "where": {
-                "id": id
-            }
+    async getOne(id: number, filter?: Filter<Pokemon>): Promise<(Pokemon & PokemonRelations)[]> {
+        // We're going to always apply a where clause ourselves to retrieve a specific Pokemon.
+        // That allows us to find Pokemon by the external numeric ID/Pokemon number,
+        // instead of the internal MongoDB ID.
+        if (isNil(filter)) {
+            filter = {};
+        }
+        filter.where = {
+            "id": id
         };
-
-        await this.repository.find(filter).then((response) => {
-            // If none were found, throw a 404 for the requested entity
-            if (!isEmpty(response)) {
-                return this.repository.deleteById(response[0]._id);
-            }
-        }).catch((err) => {
-            return this.handleError(err);
-        });
+        return this.repository.find(filter);
     }
 
     /**
@@ -155,6 +158,7 @@ export class PokemonController {
     handleError(err: any): HttpError {
         // Log it
         console.error(err);
+        // TODO - write to DB?
 
         switch (err.code) {
             // Not Found - 404

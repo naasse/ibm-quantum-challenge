@@ -8,14 +8,13 @@ import {Entity, model, property} from "@loopback/repository";
 })
 export class Pokemon extends Entity {
 
-    // TODO - this seems like a hacky approach. Can we just keep our ID?
     @property({
-        type: "string",
+        type: "number",
         id: false,
         generated: false,
         required: true,
     })
-    id: string;
+    id: number;
 
     @property({
         type: "string",
