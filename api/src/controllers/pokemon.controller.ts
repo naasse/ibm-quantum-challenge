@@ -109,6 +109,7 @@ export class PokemonController {
     }
 
     /**
+     * Get the list of all Pokemon, subject to pagination and filtering.
      * GET /pokemon
      *
      * @return {ResponseObject} response object containing the list of Pokemon.
@@ -121,15 +122,16 @@ export class PokemonController {
     listPokemon(): object[] {
         // TODO - retrieve from database
         // TODO - allow pagination
-        // TODO - allow filter on type, favorites only, or if possible, any field
-        const pokemonList = [{"id": 1}];
+        // TODO - allow filter on type, favorites only, or if possible, any field?
+        const pokemonList = [{"id": "001"}];
         return pokemonList;
     }
 
     /**
+     * Get the the Pokemon with the specified ID.
      * GET /pokemon/{id}
      *
-     * @param {number} id the Pokemon ID.
+     * @param {string} id the Pokemon ID.
      * @return {ResponseObject} response object containing the pokemon with the specified ID.
      */
     @get("/pokemon/{id}", {
@@ -138,20 +140,47 @@ export class PokemonController {
             "404": NOT_FOUND_RESPONSE
         }
     })
-    getPokemon(@param.path.number("id") id: number): object {
+    getPokemon(@param.path.string("id") id: string): object {
         // TODO - retrieve from database
         const pokemon = {"id": id};
-        if (id > 150) {
+        if (Number(id) > 150) {
             this.res.status(http2.constants.HTTP_STATUS_NOT_FOUND);
             return {
                 "statusCode": http2.constants.HTTP_STATUS_NOT_FOUND,
                 "message": `A Pokemon with ID '${id}' was not found.`
             }
         }
+        // TODO - try name instead?
+        return pokemon;
+    }
+
+    /**
+     * Update the Pokemon with the specified ID to toggle the favorite status.
+     * PUT /pokemon/{id}/favorite
+     *
+     * @param {string} id the Pokemon ID.
+     * @return {ResponseObject} response object containing the updated Pokemon.
+     */
+    @put("/pokemon/{id}/favorite", {
+        "responses": {
+            "200": POKEMON_RESPONSE,
+            "404": NOT_FOUND_RESPONSE
+        }
+    })
+    toggleFavorite(@param.path.string("id") id: string): object {
+        // TODO - retrieve/update database
+        const pokemon = {"id": id, "favorite": true};
+        if (Number(id) > 150) {
+            this.res.status(http2.constants.HTTP_STATUS_NOT_FOUND);
+            return {
+                "statusCode": http2.constants.HTTP_STATUS_NOT_FOUND,
+                "message": `A Pokemon with ID '${id}' was not found.`
+            }
+        }
+        // TODO - try name instead?
         return pokemon;
     }
 
     // TODO - Query a pokemon by name (Is this different than searching on name?)
     // TODO - Query list of pokemon types
-    // TODO - Mutation to mark/unmark pokemon as favorite
 }
