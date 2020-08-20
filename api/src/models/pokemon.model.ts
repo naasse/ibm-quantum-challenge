@@ -1,14 +1,29 @@
 import {Entity, model, property} from "@loopback/repository";
 
-@model({settings: {strict: false}})
+@model({
+    settings: {
+        mongodb: {collection: "pokemon"},
+        strict: false
+    }
+})
 export class Pokemon extends Entity {
+
+    // TODO - this seems like a hacky approach. Can we just keep our ID?
     @property({
         type: "string",
-        id: true,
+        id: false,
         generated: false,
         required: true,
     })
     id: string;
+
+    @property({
+        type: "string",
+        id: true,
+        generated: true,
+        required: true,
+    })
+    _id: string;
 
     @property({
         type: "string",

@@ -10,7 +10,6 @@ const config = {
     user: "ash",
     password: "ketchum",
     database: "pokedex",
-    useNewUrlParser: true,
     "authSource": "pokedex"
 };
 

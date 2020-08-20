@@ -6,7 +6,7 @@
  * Author: naasse (nate.asselstine@gmail.com)
  \******************************************************************************/
 
-import {get, put, param, Request, Response, ResponseObject, RestBindings, requestBody, del} from "@loopback/rest";
+import {get, param, put, Request, Response, ResponseObject, RestBindings} from "@loopback/rest";
 import {inject} from "@loopback/core";
 import {Filter, FilterExcludingWhere, repository} from "@loopback/repository";
 import {PokemonRepository} from "../repositories";
@@ -42,9 +42,6 @@ export class PokemonController {
      */
     @get(Routes.POKEMON_LIST, PokemonListResponseSpec)
     async find(@param.filter(Pokemon) filter?: Filter<Pokemon>): Promise<Pokemon[] | HttpError> {
-        // TODO - retrieve from database
-        // TODO - allow pagination
-        // TODO - allow filter on type, favorites only, or if possible, any field?
         return this.repository.find(filter).catch((err) => {
             return this.handleError(err);
         });
