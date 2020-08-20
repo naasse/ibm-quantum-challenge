@@ -48,4 +48,16 @@ WARNING: shell and server versions do not match
 switched to db pokedex
 > show collections
 pokemon
+> db.pokemon.find().pretty()
+{
+        "_id" : ObjectId("5f3dd93d42cb09e10be25ddd"),
+        "id" : "001",
+        "name" : "Bulbasaur",
+        "classification" : "Seed Pokémon",
+        "types" : [
+                "Grass",
+                "Poison"
+        ],
+        ...
+}
 ```

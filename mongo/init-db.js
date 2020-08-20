@@ -27,10 +27,11 @@ db.createUser({
 // Create the collection of Pokemon in our Pokedex
 db.createCollection("pokemon");
 
-// Insert the known Pokemon into our collection
-// TODO
-// db.collection.insertMany([
-//     "./pokemons.json"
-// ])
+// Load the pokemons.json into a JSON object
+const fileContent = cat("/docker-entrypoint-initdb.d/pokemons.json");
+const pokemon = JSON.parse(fileContent);
+
+// Insert the data into the collection
+db.pokemon.insertMany(pokemon);
 
 // TODO: catch 'em all
