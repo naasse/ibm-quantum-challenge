@@ -1,0 +1,18 @@
+version: "3"
+services:
+  mongodb:
+    container_name: mongodb
+    # Get the latest mongo image from Docker hub
+    image: "mongo"
+    # Set our DB environment variables for the init database and user
+    environment:
+      - MONGO_INITDB_DATABASE=system
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    # Copy our DB initialization file as readonly, as well as the pokemon json, since we'll use it to seed the DB
+    volumes:
+      - ./init-db.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ../pokemons.json:/docker-entrypoint-initdb.d/pokemons.json:ro
+    # Forward the default port
+    ports:
+      - "27017:27017"
