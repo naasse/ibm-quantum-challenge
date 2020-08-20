@@ -52,15 +52,33 @@ export class PokemonController {
      * GET /pokemon/{id}
      *
      * @param {string} id the Pokemon ID.
-     * @param {FilterExcludingWhere<Pokemon>} filter [optional] the filter to apply.
+     * @param {Filter<Pokemon>} filter [optional] the filter to apply.
      * @return {ResponseObject} response object containing the pokemon with the specified ID.
      */
     @get(Routes.POKEMON, PokemonResponseSpec)
     async findById(
         @param.path.string("id") id: string,
-        @param.filter(Pokemon, {"exclude": "where"}) filter?: FilterExcludingWhere<Pokemon>
+        @param.filter(Pokemon, {"exclude": "where"}) filter?: Filter<Pokemon>
     ): Promise<Pokemon | HttpError> {
-        return this.repository.findById(id, filter).catch((err) => {
+        if (filter === undefined) {
+            filter = {};
+        }
+        // We're going to always apply a where clause ourselves.
+        // That allows us to find Pokemon by the external numeric ID, instead of the internal DB ID
+        filter.where = {
+            "id": id
+        };
+        return this.repository.find(filter).then((response) => {
+            if (response.length === 0) {
+                // Not Found, throw a 404
+                return this.handleError({
+                    "code": "ENTITY_NOT_FOUND",
+                    "entityName": "Pokemon",
+                    "entityId": id
+                });
+            }
+            return response[0];
+        }).catch((err) => {
             return this.handleError(err);
         });
     }
