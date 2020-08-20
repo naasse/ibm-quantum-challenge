@@ -1,5 +1,7 @@
 # Setup/Installation
 
+## Database
+
 Given ADR-1, our first setup task is to create our database.
 
 We don't have any requirements about high-availability at this time, so let's spin up a small Docker pod with

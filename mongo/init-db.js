@@ -6,7 +6,7 @@
  * Author: naasse (nate.asselstine@gmail.com)
  \******************************************************************************/
 
-// Create our Pokedex database
+// Create our Pokedex database.
 databases = ["pokedex"];
 
 // Switch to the Pokedex DB
