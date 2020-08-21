@@ -1,0 +1,437 @@
+{
+	"version": 1,
+	"collections": [
+		{
+			"id": "f55a5346-d76b-4ebd-b6b2-962a1534e8d8",
+			"name": "Pokedex",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"variables": [],
+			"order": [
+				"75581f02-bd0e-4175-873b-97caf8b27a6b",
+				"bc65aa3b-9791-4a21-b0f2-35cda3f72ac3",
+				"3bdd4bbe-6be0-4594-b5b9-840516c2580e",
+				"d646ccfd-9883-4c7f-b99a-def826de9b9f",
+				"56e031e3-ffe0-495b-9e14-a4a7ef35245c",
+				"e0d62096-d722-4694-8ff3-037c88ef3b85",
+				"a4286f96-02d3-4d6b-bace-8d53b8f1c994",
+				"45f5f4f6-c0f7-4939-ad94-f970651a1bd8",
+				"3bd7e9d8-72c1-43c6-a1df-cfde8710d307",
+				"0b225f9e-b4d5-4b59-812b-998d7b12f2e2",
+				"2bc4636d-532d-4aee-8c08-27e778b25cfc",
+				"22f33187-0ace-4943-aa7f-1cd0ca110561",
+				"f2645b0d-42df-4bad-b4b9-5b72908c4a54",
+				"6d1adf95-cf96-4575-9556-1a612dc8f2f6"
+			],
+			"folders_order": [],
+			"protocolProfileBehavior": {},
+			"folders": [],
+			"requests": [
+				{
+					"id": "0b225f9e-b4d5-4b59-812b-998d7b12f2e2",
+					"name": "Use a complicated filter",
+					"url": "{{host}}:{{port}}/pokemon?filter[where][types][inq][0]=Normal&filter[where][and][0][name][like]=P&filter[where][and][1][maxHP][gt]=1000",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "filter[where][types][inq][0]",
+							"value": "Normal",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						},
+						{
+							"key": "filter[where][and][0][name][like]",
+							"value": "P",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						},
+						{
+							"key": "filter[where][and][1][maxHP][gt]",
+							"value": "1000",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "f55a5346-d76b-4ebd-b6b2-962a1534e8d8",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "22f33187-0ace-4943-aa7f-1cd0ca110561",
+					"name": "Request an invalid ID",
+					"url": "{{host}}:{{port}}/pokemon/abc",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "f55a5346-d76b-4ebd-b6b2-962a1534e8d8",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "2bc4636d-532d-4aee-8c08-27e778b25cfc",
+					"name": "Get a single Pokemon that does not exist",
+					"url": "{{host}}:{{port}}/pokemon/10000",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "f55a5346-d76b-4ebd-b6b2-962a1534e8d8",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "3bd7e9d8-72c1-43c6-a1df-cfde8710d307",
+					"name": "Get a list of fire or flying type Pokemon",
+					"url": "{{host}}:{{port}}/pokemon?filter[where][types][inq][0]=Fire&filter[where][types][inq][1]=Flying",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "filter[where][types][inq][0]",
+							"value": "Fire",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						},
+						{
+							"key": "filter[where][types][inq][1]",
+							"value": "Flying",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "f55a5346-d76b-4ebd-b6b2-962a1534e8d8",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "3bdd4bbe-6be0-4594-b5b9-840516c2580e",
+					"name": "Get a single Pokemon",
+					"url": "{{host}}:{{port}}/pokemon/6",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "f55a5346-d76b-4ebd-b6b2-962a1534e8d8",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "45f5f4f6-c0f7-4939-ad94-f970651a1bd8",
+					"name": "Get a list of favorite Pokemon",
+					"url": "{{host}}:{{port}}/pokemon?filter[where][favorite]=true",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "filter[where][favorite]",
+							"value": "true",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "f55a5346-d76b-4ebd-b6b2-962a1534e8d8",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "56e031e3-ffe0-495b-9e14-a4a7ef35245c",
+					"name": "Get count of Pokemon in the list with a name that begins with a specific letter",
+					"url": "{{host}}:{{port}}/pokemon/count?filter[where][name][like]=M",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "filter[where][name][like]",
+							"value": "M",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "f55a5346-d76b-4ebd-b6b2-962a1534e8d8",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "6d1adf95-cf96-4575-9556-1a612dc8f2f6",
+					"name": "Delete a Pokemon",
+					"url": "{{host}}:{{port}}/pokemon/1",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "DELETE",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "f55a5346-d76b-4ebd-b6b2-962a1534e8d8",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "75581f02-bd0e-4175-873b-97caf8b27a6b",
+					"name": "Get list of Pokemon",
+					"url": "{{host}}:{{port}}/pokemon",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "f55a5346-d76b-4ebd-b6b2-962a1534e8d8",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "a4286f96-02d3-4d6b-bace-8d53b8f1c994",
+					"name": "Get a list of Pokemon with a name that begins with a specific letter",
+					"url": "{{host}}:{{port}}/pokemon?filter[where][name][like]=M",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "filter[where][name][like]",
+							"value": "M",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "f55a5346-d76b-4ebd-b6b2-962a1534e8d8",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "bc65aa3b-9791-4a21-b0f2-35cda3f72ac3",
+					"name": "Get count of Pokemon in the list",
+					"url": "{{host}}:{{port}}/pokemon/count",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "f55a5346-d76b-4ebd-b6b2-962a1534e8d8",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "d646ccfd-9883-4c7f-b99a-def826de9b9f",
+					"name": "Get a Pokemon with a given name",
+					"url": "{{host}}:{{port}}/pokemon?filter[where][name]=Pikachu",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "filter[where][name]",
+							"value": "Pikachu",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "f55a5346-d76b-4ebd-b6b2-962a1534e8d8",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "e0d62096-d722-4694-8ff3-037c88ef3b85",
+					"name": "Get a paginated list of Pokemon",
+					"url": "{{host}}:{{port}}/pokemon?filter[limit]=10&filter[offset]=10",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "filter[limit]",
+							"value": "10",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						},
+						{
+							"key": "filter[offset]",
+							"value": "10",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "f55a5346-d76b-4ebd-b6b2-962a1534e8d8",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "f2645b0d-42df-4bad-b4b9-5b72908c4a54",
+					"name": "Toggle favorite for a single Pokemon",
+					"url": "{{host}}:{{port}}/pokemon/50/favorite",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "PUT",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "f55a5346-d76b-4ebd-b6b2-962a1534e8d8",
+					"headers": "",
+					"pathVariables": {}
+				}
+			]
+		}
+	],
+	"environments": [
+		{
+			"id": "2f9844bc-8372-4dfe-9c71-8b6a3ed17c77",
+			"name": "pokedex",
+			"values": [
+				{
+					"key": "host",
+					"value": "http://127.0.0.1",
+					"enabled": true
+				},
+				{
+					"key": "port",
+					"value": "3210",
+					"enabled": true
+				}
+			]
+		},
+		{
+			"id": "82dca596-0607-48ff-9c8a-42184342c884",
+			"name": "My Workspace - globals",
+			"values": []
+		}
+	],
+	"headerPresets": [],
+	"globals": []
+}

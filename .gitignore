@@ -1,4 +1,8 @@
+# Loopback mid-tier API layer
 api/node_modules/
 api/dist/
 api/tsconfig.tsbuildinfo
 .idea/workspace.xml
+
+# React frontend layer
+frontend/node_modules/
