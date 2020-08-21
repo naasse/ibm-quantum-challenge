@@ -1,3 +1,10 @@
+# IBMQuantum/backend-code-challenge
+
+This repo is an attempt at the [IBMQuantum backend code challenge](https://github.com/IBMQuantum/backend-code-challenge).
+
+The below `README` content and the include `pokemons.json` come from the linked repository.
+Everything else was written my me to use MongoDB, Loopback.io, and ReactJS to build a simple Pokedex application.
+
 # Challenges Coding Exercise Backend
 
 We have provided you with Pokemon data in a json file. Your mission is to create a database and expose the database to a API. Basically, you need to:

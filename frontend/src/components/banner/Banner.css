@@ -1,0 +1,11 @@
+.Banner {
+    background-color: #052fad;
+    height: 2.5rem;
+    display: flex;
+}
+
+.Banner .title {
+    margin: auto;
+    text-align: center;
+    color: #ffffff;
+}

@@ -1,20 +1,18 @@
 /******************************************************************************\
- * Name: App.tsx
+ * Name: Banner.tsx
  *
- * Purpose: Start the frontend application.
+ * Purpose: Provides the application banner component.
  *
  * Author: naasse (nate.asselstine@gmail.com)
  \******************************************************************************/
 
 import React, {ReactElement} from "react";
-import "./App.css";
-import Banner from "./components/banner/Banner";
-import Pokedex from "./components/pokedex/Pokedex";
+import "./Banner.css";
 
-type Props = { "title": string };
+type Props = { "title": string } ;
 type State = {};
 
-export default class App extends React.Component<Props, State> {
+export default class Banner extends React.Component<Props, State> {
 
     /**
      * Default constructor.
@@ -26,15 +24,12 @@ export default class App extends React.Component<Props, State> {
     }
 
     /**
-     * Render the main view of the application.
+     * Render the Banner component.
      */
     render(): ReactElement {
         return (
-            <div className="App">
-                <header className="App-header">
-                    <Banner title={this.props.title}/>
-                </header>
-                <Pokedex/>
+            <div className="Banner">
+                <span className="title">{this.props.title}</span>
             </div>
         );
     }
