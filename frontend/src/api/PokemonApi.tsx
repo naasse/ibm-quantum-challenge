@@ -7,6 +7,8 @@
  \******************************************************************************/
 import AxiosUtil from "../util/AxiosUtil";
 import {HttpMethod} from "../enum/HttpMethod";
+import Pokemon from "../representations/Pokemon";
+import {isNil} from "lodash";
 
 export default class PokemonApi {
 
@@ -24,9 +26,32 @@ export default class PokemonApi {
      */
     public static getCount(): Promise<number> {
         const uri = PokemonApi.getContext();
-        return AxiosUtil.makeRequest(uri + "/count", HttpMethod.GET)
-            .then((response) => {
-                return response.data.count;
-            });
+        return AxiosUtil.makeRequest(uri + "/count", HttpMethod.GET).then((response) => {
+            return response.data.count;
+        });
+    }
+
+    /**
+     * Request the list of Pokemon.
+     * @param {number} limit [optional] the number of Pokemon to get.
+     * @param {number} offset [optional] the collection offset.
+     * @return {Promise<Pokemon[]>} the Promised array of Pokemon.
+     */
+    public static find(limit?: number, offset?: number): Promise<Pokemon[]> {
+        let uri = PokemonApi.getContext();
+        if (!isNil(limit)) {
+           uri += `?filter[limit]=${limit}`;
+        }
+        if (!isNil(offset)) {
+            if (isNil(limit)) {
+                uri += "?";
+            } else {
+                uri += "&";
+            }
+            uri += `filter[offset]=${offset}`;
+        }
+        return AxiosUtil.makeRequest(uri, HttpMethod.GET).then((response) => {
+            return response.data;
+        });
     }
 }
