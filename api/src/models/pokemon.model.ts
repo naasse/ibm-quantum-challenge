@@ -115,9 +115,3 @@ export class Pokemon extends Entity {
         super(data);
     }
 }
-
-export interface PokemonRelations {
-    // describe navigational properties here
-}
-
-export type PokemonWithRelations = Pokemon & PokemonRelations;
