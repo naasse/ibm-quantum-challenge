@@ -25,19 +25,23 @@
     "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
     "posttest": "npm run lint",
     "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
-    "docker:build": "docker build -t api .",
-    "docker:run": "docker run -p 3000:3000 -d api",
-    "migrate": "node ./dist/migrate",
     "openapi-spec": "node ./dist/openapi-spec",
     "prestart": "npm run build",
     "start": "node -r source-map-support/register .",
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache"
   },
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "https://github.com/naasse/ibm-quantum-challenge"
   },
-  "author": "",
-  "license": "",
+  "author": {
+    "name": "Nathan Asselstine",
+    "email": "nate.asselstine@gmail.com"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/naasse/ibm-quantum-challenge/issues"
+  },
   "files": [
     "README.md",
     "dist",

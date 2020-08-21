@@ -2,7 +2,7 @@
  * Name: HttpError.ts
  *
  * Purpose: Custom error object to be returned to the caller.
- *          Wraps the inner error.
+ *          Wraps the inner error, if defined.
  *
  * Author: naasse (nate.asselstine@gmail.com)
  \******************************************************************************/

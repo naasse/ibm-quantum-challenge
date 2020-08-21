@@ -15,7 +15,7 @@ import * as http2 from "http2";
 import {HttpError} from "../representations";
 import {PokemonDeletionResponseSpec, PokemonListResponseSpec, PokemonResponseSpec} from "../specs";
 import {Routes} from "../constants";
-import {isEmpty, isEqual, isNil} from "lodash";
+import {isNil} from "lodash";
 
 export class PokemonController {
     /**
@@ -43,7 +43,9 @@ export class PokemonController {
      */
     @get(Routes.POKEMON_LIST, PokemonListResponseSpec)
     async find(@param.filter(Pokemon) filter?: Filter<Pokemon>): Promise<Pokemon[] | HttpError> {
-        filter = this.updateFilter(filter);
+        if (isNil(filter)) {
+            filter = {};
+        }
         return this.repository.find(filter).catch((err) => {
             return this.handleError(err);
         });
@@ -59,7 +61,9 @@ export class PokemonController {
      */
     @get(Routes.POKEMON_COUNT, PokemonListResponseSpec)
     async count(@param.filter(Pokemon) filter?: Filter<Pokemon>): Promise<Count> {
-        filter = this.updateFilter(filter);
+        if (isNil(filter)) {
+            filter = {};
+        }
         return this.repository.count(filter.where);
     }
 
@@ -76,7 +80,9 @@ export class PokemonController {
         @param.path.number("id") id: number,
         @param.filter(Pokemon, {"exclude": "where"}) filter?: Filter<Pokemon>
     ): Promise<Pokemon | HttpError> {
-        filter = this.updateFilter(filter);
+        if (isNil(filter)) {
+            filter = {};
+        }
         return this.getOne(id, filter).then((response) => {
             // If none were found, throw a 404 for the requested entity
             if (isNil(response)) {
@@ -151,7 +157,9 @@ export class PokemonController {
         // We're going to always apply a where clause ourselves to retrieve a specific Pokemon.
         // That allows us to find Pokemon by the external numeric ID/Pokemon number,
         // instead of the internal MongoDB ID.
-        filter = this.updateFilter(filter);
+        if (isNil(filter)) {
+            filter = {};
+        }
         filter.where = {
             "id": id
         };
@@ -159,48 +167,6 @@ export class PokemonController {
             // Return the first one.
             return response[0];
         });
-    }
-
-    /**
-     * Update a given, optional filter.
-     * Ensures it is defined, and array filters passed in as string are properly updated.
-     *
-     * @param {Filter<Pokemon>} filter [optional] the filter to update. If undefined, return a new filter.
-     * @retrun {Filter<Pokemon>} the updated filter.
-     */
-    updateFilter(filter?: Filter<Pokemon>): Filter<Pokemon> {
-        if (isNil(filter)) {
-            return {};
-        }
-        // // TODO - this doesn't seem like this should be necessary?
-        // // Per the loopback documentation, I imagine [inq] should automatically be converted to array type.
-        // // I'm possibly implementing the filter wrong, or making an invalid REST call.
-        // // Ensure all array type fields don't have an inq clause on string.
-        // if (!isNil(filter.where)) {
-        //     // Pop off the where clause as a new object
-        //     const where: any = filter.where;
-        //     console.log("WHERE:");
-        //     console.log(where);
-        //
-        //     console.log("ALL PROPERTIES:");
-        //     const dummyPokemon = new Pokemon();
-        //     for (const prop in dummyPokemon) {
-        //         console.log(`${prop}`);
-        //         if (Pokemon.hasOwnProperty(prop)) {
-        //         }
-        //     }
-        //
-        //     if (typeof where.types.inq === "string" || where.types.inq instanceof String) {
-        //         // It was a string - set it to an array containing that string.
-        //         // If there are commas, split them
-        //         where.types.inq = where.types.inq.split(",");
-        //     }
-        //     // Reset the filter clause
-        //     filter.where = where;
-        //     console.log("NEW FILTER");
-        //     console.log(filter.where);
-        // }
-        return filter;
     }
 
     /**
@@ -224,9 +190,7 @@ export class PokemonController {
         }
     }
 
-    // TODO - Query a pokemon by name (Is this different than searching on name?)
-    // TODO - Query list of pokemon types
     // NOTE: PUT/POST/PATCH not implemented.
-    // Requirements don't ask for it, and though I started to implement, it seems like
+    // Requirements don't specify it, and though I started to implement, it seems like
     // the point of this API is to seed from initial data and only view/favorite from there.
 }

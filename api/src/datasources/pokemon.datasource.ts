@@ -2,14 +2,14 @@ import {inject, lifeCycleObserver, LifeCycleObserver} from "@loopback/core";
 import {juggler} from "@loopback/repository";
 
 const config = {
-    name: "pokemon",
-    connector: "mongodb",
-    url: "",
-    host: "localhost",
-    port: 27017,
-    user: "ash",
-    password: "ketchum",
-    database: "pokedex",
+    "name": "pokemon",
+    "connector": "mongodb",
+    "url": "",
+    "host": "localhost",
+    "port": 27017,
+    "user": "ash",
+    "password": "ketchum",
+    "database": "pokedex",
     "authSource": "pokedex"
 };
 
@@ -24,8 +24,7 @@ export class PokemonDataSource extends juggler.DataSource
     static readonly defaultConfig = config;
 
     constructor(
-        @inject("datasources.config.pokemon", {optional: true})
-            dsConfig: object = config,
+        @inject("datasources.config.pokemon", {"optional": true}) dsConfig: object = config
     ) {
         super(dsConfig);
     }
