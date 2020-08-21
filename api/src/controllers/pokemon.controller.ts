@@ -8,7 +8,7 @@
 
 import {del, get, param, put, Request, Response, ResponseObject, RestBindings} from "@loopback/rest";
 import {inject} from "@loopback/core";
-import {Filter, repository} from "@loopback/repository";
+import {Count, Filter, repository} from "@loopback/repository";
 import {PokemonRepository} from "../repositories";
 import {Pokemon, PokemonRelations} from "../models";
 import * as http2 from "http2";
@@ -39,7 +39,7 @@ export class PokemonController {
      * GET /pokemon
      *
      * @param {Filter<Pokemon>} filter [optional] the filter to apply.
-     * @return {ResponseObject} response object containing the list of Pokemon.
+     * @return {Promise<Pokemon[] | HttpError>} response containing the list of Pokemon, or error.
      */
     @get(Routes.POKEMON_LIST, PokemonListResponseSpec)
     async find(@param.filter(Pokemon) filter?: Filter<Pokemon>): Promise<Pokemon[] | HttpError> {
@@ -48,13 +48,29 @@ export class PokemonController {
         });
     }
 
+
+    /**
+     * Get the count of all Pokemon, subject to filtering.
+     * GET /pokemon/count
+     *
+     * @param {Filter<Pokemon>} filter [optional] the filter to apply.
+     * @return {Promise<Count>} response containing the count of Pokemon.
+     */
+    @get(Routes.POKEMON_COUNT, PokemonListResponseSpec)
+    async count(@param.filter(Pokemon) filter?: Filter<Pokemon>): Promise<Count> {
+        if (isNil(filter)) {
+            filter = {};
+        }
+        return this.repository.count(filter.where);
+    }
+
     /**
      * Get the the Pokemon with the specified ID.
      * GET /pokemon/{id}
      *
      * @param {number} id the Pokemon ID.
      * @param {Filter<Pokemon>} filter [optional] the filter to apply.
-     * @return {ResponseObject} response object containing the pokemon with the specified ID.
+     * @return {Promise<Pokemon | HttpError>} response containing the pokemon with the specified ID, or error.
      */
     @get(Routes.POKEMON, PokemonResponseSpec)
     async findById(
@@ -63,7 +79,7 @@ export class PokemonController {
     ): Promise<Pokemon | HttpError> {
         return this.getOne(id, filter).then((response) => {
             // If none were found, throw a 404 for the requested entity
-            if (isEmpty(response)) {
+            if (isNil(response)) {
                 // Not Found, throw a 404
                 return this.handleError({
                     "code": "ENTITY_NOT_FOUND",
@@ -71,12 +87,16 @@ export class PokemonController {
                     "entityId": id
                 });
             }
-            // Otherwise, return the first one. There should only be one.
-            return response[0];
+            return response;
         }).catch((err) => {
             return this.handleError(err);
         });
     }
+
+    // TODO - PUT?
+    // TODO - POST?
+    // TODO - PATCH?
+    // TODO - count
 
     // @put(Routes.POKEMON, {
     //     responses: {
@@ -93,22 +113,31 @@ export class PokemonController {
     // }
     //
 
-    // /**
-    //  * Update the Pokemon with the specified ID to toggle the favorite status.
-    //  * PUT /pokemon/{id}/favorite
-    //  *
-    //  * @param {string} id the Pokemon ID.
-    //  * @return {ResponseObject} response object containing the updated Pokemon.
-    //  */
-    // @put(Routes.POKEMON_FAVORITE, PokemonResponseSpec)
-    // async toggleFavoriteById(@param.path.number("id") id: number): Promise<Pokemon | HttpError> {
-    //     return this.repository.findById(id).then((response) => {
-    //         // TODO - update it
-    //         return response;
-    //     }).catch((err) => {
-    //         return this.handleError(err);
-    //     });
-    // }
+    /**
+     * Update the Pokemon with the specified ID to toggle the favorite status.
+     * PUT /pokemon/{id}/favorite
+     *
+     * @param {string} id the Pokemon ID.
+     * @return {Promise<void | HttpError>} response containing the updated Pokemon,
+     */
+    @put(Routes.POKEMON_FAVORITE, PokemonResponseSpec)
+    async toggleFavoriteById(@param.path.number("id") id: number): Promise<Pokemon | HttpError> {
+        var updated: Pokemon;
+        return this.getOne(id).then((response) => {
+            if (isNil(response.favorite)) {
+                response.favorite = true;
+            } else {
+                response.favorite = !response.favorite;
+            }
+            updated = response;
+            return this.repository.update(updated);
+        }).then(() => {
+            // Return the Pokemon we just updated
+            return Promise.resolve(updated);
+        }).catch((err) => {
+            return this.handleError(err);
+        });
+    }
 
     /**
      * Delete the Pokemon with the specified ID.
@@ -123,9 +152,9 @@ export class PokemonController {
         // we can't use the CRUD repository delete interface methods immediately.
         // Retrieve the specified entity then delete it.
         await this.getOne(id).then((response) => {
-            // If none were found, throw a 404 for the requested entity
-            if (!isEmpty(response)) {
-                return this.repository.delete(response[0]);
+            // If one was found, delete it
+            if (!isNil(response)) {
+                return this.repository.delete(response);
             }
         }).catch((err) => {
             return this.handleError(err);
@@ -136,8 +165,9 @@ export class PokemonController {
      * Utility method for getting a Pokemon by the external number ID.
      * @param {number} id the Pokemon ID to look for.
      * @param {Filter<Pokemon>} filter [optional] the filter to apply.
+     * @return {Promise<Pokemon & PokemonRelations>} the found pokemon.
      */
-    async getOne(id: number, filter?: Filter<Pokemon>): Promise<(Pokemon & PokemonRelations)[]> {
+    async getOne(id: number, filter?: Filter<Pokemon>): Promise<(Pokemon & PokemonRelations)> {
         // We're going to always apply a where clause ourselves to retrieve a specific Pokemon.
         // That allows us to find Pokemon by the external numeric ID/Pokemon number,
         // instead of the internal MongoDB ID.
@@ -147,7 +177,10 @@ export class PokemonController {
         filter.where = {
             "id": id
         };
-        return this.repository.find(filter);
+        return this.repository.find(filter).then((response) => {
+            // Return the first one.
+            return response[0];
+        });
     }
 
     /**

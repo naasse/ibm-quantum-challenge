@@ -100,6 +100,11 @@ export class Pokemon extends Entity {
     })
     attacks?: object;
 
+    @property({
+        type: "boolean",
+    })
+    favorite?: boolean;
+
     // Define well-known properties here
 
     // Indexer property to allow additional data
