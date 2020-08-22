@@ -4,13 +4,12 @@
 cd mongo
 docker-compose up -d
 
-# Start the API
+# Build the API
 cd ../api
 npm install
-npm start &
 
 # Start the frontend
 cd ../frontend
 npm install
-npm start &
 
+echo "All systems are go."

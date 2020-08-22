@@ -22,6 +22,7 @@ Docker version 19.03.12, build 48a66213fe
 ## Windows Subsystem for Linux (WSL)
 
 This may not be needed, but I do a lot of my scripting in WSL.
+You can use whichever environment you want, but WSL is a great alternative for developing on Windows.
 
 [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-win10#update-to-wsl-2)
 
@@ -52,7 +53,7 @@ PS C:\WINDOWS\system32> npm --version
 
 I made use of a few global dependencies to start up new instances of the application.
 
-You only need these if the the intent is to rebuild from scratch. 
+You only need these if the the intent is to rebuild from scratch.
 Otherwise, `npm install` should get the necessary dependencies.
 
 [LoopBack](https://loopback.io/):

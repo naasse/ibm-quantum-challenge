@@ -27,7 +27,7 @@ export class PokemonController {
      * @return {PokemonController} the newly constructed controller.
      */
     constructor(
-        @repository(PokemonRepository) public repository: PokemonRepository,
+        @repository(PokemonRepository) public repo: PokemonRepository,
         @inject(RestBindings.Http.REQUEST) private req: Request,
         @inject(RestBindings.Http.RESPONSE) private res: Response
     ) {
@@ -46,7 +46,7 @@ export class PokemonController {
         if (isNil(filter)) {
             filter = {};
         }
-        return this.repository.find(filter).catch((err) => {
+        return this.repo.find(filter).catch((err) => {
             return this.handleError(err);
         });
     }
@@ -64,7 +64,7 @@ export class PokemonController {
         if (isNil(filter)) {
             filter = {};
         }
-        return this.repository.count(filter.where);
+        return this.repo.count(filter.where);
     }
 
     /**
@@ -108,7 +108,7 @@ export class PokemonController {
      */
     @put(Routes.POKEMON_FAVORITE, PokemonResponseSpec)
     async toggleFavoriteById(@param.path.number("id") id: number): Promise<Pokemon | HttpError> {
-        var updated: Pokemon;
+        let updated: Pokemon;
         return this.getOne(id).then((response) => {
             if (isNil(response.favorite)) {
                 response.favorite = true;
@@ -116,7 +116,7 @@ export class PokemonController {
                 response.favorite = !response.favorite;
             }
             updated = response;
-            return this.repository.update(updated);
+            return this.repo.update(updated);
         }).then(() => {
             // Return the Pokemon we just updated
             return Promise.resolve(updated);
@@ -140,7 +140,7 @@ export class PokemonController {
         return this.getOne(id).then((response) => {
             // If one was found, delete it
             if (!isNil(response)) {
-                return this.repository.delete(response);
+                return this.repo.delete(response);
             }
         }).catch((err) => {
             return this.handleError(err);
@@ -163,7 +163,7 @@ export class PokemonController {
         filter.where = {
             "id": id
         };
-        return this.repository.find(filter).then((response) => {
+        return this.repo.find(filter).then((response) => {
             // Return the first one.
             return response[0];
         });
@@ -175,9 +175,6 @@ export class PokemonController {
      * @return {HttpError} the wrapped HTTP error.
      */
     handleError(err: any): HttpError {
-        // Log it
-        console.error(err);
-
         switch (err.code) {
             // Not Found - 404
             case "ENTITY_NOT_FOUND":

@@ -9,7 +9,7 @@
 
 import {BootMixin} from "@loopback/boot";
 import {ApplicationConfig} from "@loopback/core";
-import {RestExplorerBindings, RestExplorerComponent,} from "@loopback/rest-explorer";
+import {RestExplorerBindings, RestExplorerComponent} from "@loopback/rest-explorer";
 import {RepositoryMixin} from "@loopback/repository";
 import {MiddlewareSequence, RestApplication} from "@loopback/rest";
 import {ServiceMixin} from "@loopback/service-proxy";
@@ -31,7 +31,7 @@ export class ApiApplication extends BootMixin(
 
         // Customize @loopback/rest-explorer configuration here
         this.configure(RestExplorerBindings.COMPONENT).to({
-            path: "/explorer",
+            "path": "/explorer"
         });
         this.component(RestExplorerComponent);
 

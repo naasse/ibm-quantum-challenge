@@ -1,0 +1,48 @@
+{
+  "extends": "tslint:recommended",
+  "linterOptions": {
+    "exclude": [
+      "build/**",
+      "**/*.test.ts",
+      "**/node_modules/**"
+    ]
+  },
+  "rules": {
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "never",
+        "singleline": "never"
+      }
+    ],
+    "object-literal-sort-keys": false,
+    "object-literal-key-quotes": true,
+    "typedef": [
+      true,
+      "call-signature",
+      "property-declaration",
+      "parameter",
+      "member-variable-declaration"
+    ],
+    "ordered-imports": false,
+    "member-ordering": false,
+    "prefer-for-of": true,
+    "curly": true,
+    "no-tautology-expression": true,
+    "cyclomatic-complexity": [
+      true,
+      20
+    ],
+    "prefer-const": true,
+    "no-angle-bracket-type-assertion": true,
+    "max-line-length": [
+      true,
+      {
+        "limit": 120,
+        "ignore-pattern": "http"
+      }
+    ]
+  },
+  "jsRules": {
+  }
+}

@@ -16,6 +16,9 @@
     "build:watch": "lb-tsc --watch",
     "pretest": "npm run build",
     "test": "lb-mocha --allow-console-logs --require babel-core/register dist/**/*.test.js",
+    "pretest:cover": "npm run build",
+    "test:cover": "nyc lb-mocha --allow-console-logs --require babel-core/register dist/**/*.test.js",
+    "lint": "tslint src/**/*.ts",
     "openapi-spec": "node ./dist/openapi-spec",
     "prestart": "npm run build",
     "start": "node -r source-map-support/register .",
@@ -59,7 +62,9 @@
     "babel-core": "^6.26.3",
     "eslint": "^7.7.0",
     "mocha": "^8.1.1",
+    "mock-req-res": "^1.2.0",
     "source-map-support": "^0.5.19",
+    "tslint": "^6.1.3",
     "typescript": "~3.9.7"
   }
 }

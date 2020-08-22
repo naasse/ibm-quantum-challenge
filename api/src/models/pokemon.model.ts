@@ -97,7 +97,7 @@ export class Pokemon extends Entity {
     previousEvolutions?: object[];
 
     @property({
-        "type": "number",
+        "type": "number"
     })
     maxCP?: number;
 

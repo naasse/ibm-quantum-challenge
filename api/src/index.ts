@@ -11,7 +11,7 @@ import {ApiApplication, ApplicationConfig} from "./application";
 
 export * from "./application";
 
-export async function main(options: ApplicationConfig = {}) {
+export async function main(options: ApplicationConfig = {}): Promise<ApiApplication> {
     const app = new ApiApplication(options);
     await app.boot();
     await app.start();
@@ -31,9 +31,9 @@ if (require.main === module) {
             "host": process.env.HOST,
             "gracePeriodForClose": 5000,
             "openApiSpec": {
-                "setServersFromRequest": true,
-            },
-        },
+                "setServersFromRequest": true
+            }
+        }
     };
     main(config).catch(err => {
         console.error("Cannot start the application.", err);

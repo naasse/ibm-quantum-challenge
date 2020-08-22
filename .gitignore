@@ -1,8 +1,11 @@
+# User-specific .idea files
+.idea/workspace.xml
+
 # Loopback mid-tier API layer
 api/node_modules/
 api/dist/
 api/tsconfig.tsbuildinfo
-.idea/workspace.xml
+api/.nyc_output/
 
 # React frontend layer
 frontend/node_modules/

@@ -29,8 +29,8 @@ const config = {
 @lifeCycleObserver("datasource")
 export class PokemonDataSource extends juggler.DataSource
     implements LifeCycleObserver {
-    static dataSourceName = "pokemon";
-    static readonly defaultConfig = config;
+    static dataSourceName: string = "pokemon";
+    static readonly defaultConfig: object = config;
 
     constructor(
         @inject("datasources.config.pokemon", {"optional": true}) dsConfig: object = config

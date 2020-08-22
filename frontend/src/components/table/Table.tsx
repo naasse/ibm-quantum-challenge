@@ -13,7 +13,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {isNil} from "lodash";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar} from "@fortawesome/free-solid-svg-icons";
-import PokemonApi from "../../api/PokemonApi";
 
 type Props = { "pokemon": Pokemon[], "onFavorite": (id: number) => void };
 type State = {};

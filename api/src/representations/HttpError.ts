@@ -12,19 +12,19 @@ export class HttpError {
      * HTTP Status code.
      * @type {number}
      */
-    private statusCode: number;
+    public statusCode: number;
 
     /**
      * The error message text to return.
      * @type {string}
      */
-    private message: string;
+    public message: string;
 
     /**
      * The inner error to bubble up.
      * @type {Error?}
      */
-    private error?: Error;
+    public error?: Error;
 
     /**
      *
