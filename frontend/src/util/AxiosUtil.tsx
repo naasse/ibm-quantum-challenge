@@ -26,24 +26,25 @@ export default class AxiosUtil {
         if (isNil(headers)) {
             headers = {};
         }
+        // Set the default ACCEPT header. We generally just want to receive application/json.
         if (isNil(headers[HttpHeaders.ACCEPT])) {
             headers[HttpHeaders.ACCEPT] = MediaTypeConstants.APPLICATION_JSON;
         }
+        // Set the default ACCEPT header. We generally just want to send application/json.
         if (isNil(headers[HttpHeaders.CONTENT_TYPE])) {
             headers[HttpHeaders.CONTENT_TYPE] = MediaTypeConstants.APPLICATION_JSON;
         }
 
-        const config = {
+        const config: AxiosRequestConfig = {
             "method": method,
             "url": uri,
             "data": data,
             "headers": headers
-        } as AxiosRequestConfig;
+        };
 
         // Make the request
-        return axios(config)
-            .then((response) => {
-                return response;
-            });
+        return axios(config).then((response) => {
+            return response;
+        });
     }
 }

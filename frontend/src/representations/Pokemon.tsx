@@ -97,7 +97,13 @@ export default class Pokemon {
      * The Pokemon's attacks.
      * @type {{fast: Attack[], special: Attack[]}}
      */
-    public attacks?: {"fast": Attack[], "special": Attack[]}
+    public attacks?: {"fast": Attack[], "special": Attack[]};
+
+    /**
+     * If the Pokemon is marked favorite or not.
+     * @type {boolean}
+     */
+    public favorite?: boolean;
 
     /**
      * Constructor for this object.

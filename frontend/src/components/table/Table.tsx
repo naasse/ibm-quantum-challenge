@@ -9,8 +9,13 @@
 import React, {ReactElement} from "react";
 import "./Table.css";
 import Pokemon from "../../representations/Pokemon";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {isNil} from "lodash";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faStar} from "@fortawesome/free-solid-svg-icons";
+import PokemonApi from "../../api/PokemonApi";
 
-type Props = { "pokemon": Pokemon[] };
+type Props = { "pokemon": Pokemon[], "onFavorite": (id: number) => void };
 type State = {};
 
 export default class Table extends React.Component<Props, State> {
@@ -33,7 +38,10 @@ export default class Table extends React.Component<Props, State> {
         return <tr>
             <th>ID</th>
             <th>Name</th>
-        </tr>
+            <th>Classification</th>
+            <th>Types</th>
+            <th>Favorite</th>
+        </tr>;
     }
 
     /**
@@ -41,14 +49,30 @@ export default class Table extends React.Component<Props, State> {
      * @return {ReactElement[]} the array of rows elements.
      */
     getTableBody(): ReactElement[] {
-        return this.props.pokemon.map((p, index) => {
+        return this.props.pokemon.map((p) => {
             return (
                 <tr key={p.id}>
                     <td>{p.id}</td>
                     <td>{p.name}</td>
+                    <td>{p.classification}</td>
+                    <td>
+                        {
+                            !isNil(p.types) && <ul>
+                                {p.types.map((t, index) => {
+                                    return (<li key={index}>{t}</li>);
+                                })}
+                            </ul>
+                        }
+                    </td>
+                    <td>
+                        <FontAwesomeIcon
+                            icon={faStar}
+                            onClick={this.props.onFavorite.bind(this, p.id)}
+                            className={p.favorite ? "favorite" : "not-favorite"}/>
+                    </td>
                 </tr>
-            )
-        })
+            );
+        });
     }
 
     /**
@@ -58,10 +82,9 @@ export default class Table extends React.Component<Props, State> {
     render(): ReactElement {
         return (
             <div className="Table">
-                <table>
+                <table className="table">
                     <thead>{this.getTableHeader()}</thead>
                     <tbody>{this.getTableBody()}</tbody>
-
                 </table>
             </div>
         );

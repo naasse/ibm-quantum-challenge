@@ -42,6 +42,7 @@ export default class Pokedex extends React.Component<Props, State> {
         // Bind the function scopes
         this.previousPage = this.previousPage.bind(this);
         this.nextPage = this.nextPage.bind(this);
+        this.toggleFavorite = this.toggleFavorite.bind(this);
     }
 
     /**
@@ -119,6 +120,20 @@ export default class Pokedex extends React.Component<Props, State> {
         }
     }
 
+
+    /**
+     * Toggle the selected Pokemon favorite flag.
+     * @param {number} id the ID of the Pokemon to toggle.
+     */
+    toggleFavorite(id: number): void {
+        PokemonApi.toggleFavorite(id).then(() => {
+            this.setPokemon();
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
+
+
     /**
      * Render the Pokedex component.
      * @return {ReactElement} the Pokedex React element.
@@ -126,18 +141,23 @@ export default class Pokedex extends React.Component<Props, State> {
     render(): ReactElement {
         return (
             <div className="Pokedex">
-                <p>
+                <p className="pokemon-count">
                     Total Pokemon: {this.state.count} Pokemon.
                 </p>
-                <FontAwesomeIcon
-                    icon={faArrowUp}
-                    onClick={this.previousPage}
-                    className={this.state.canGetPrevious ? "" : "disabled-button"}/>
-                <FontAwesomeIcon
-                    icon={faArrowDown}
-                    onClick={this.nextPage}
-                    className={this.state.canGetNext ? "" : "disabled-button"}/>
-                <Table pokemon={this.state.pokemon}/>
+                <span className="pagination-toolbar">
+                    Pagination:
+                    <FontAwesomeIcon
+                        icon={faArrowUp}
+                        onClick={this.previousPage}
+                        className={this.state.canGetPrevious ? "" : "disabled-button"}/>
+                    <FontAwesomeIcon
+                        icon={faArrowDown}
+                        onClick={this.nextPage}
+                        className={this.state.canGetNext ? "" : "disabled-button"}/>
+                </span>
+                <Table
+                    pokemon={this.state.pokemon}
+                    onFavorite={this.toggleFavorite}/>
             </div>
         );
     }

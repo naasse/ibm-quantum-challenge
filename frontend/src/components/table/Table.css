@@ -1,3 +1,16 @@
 .Table {
-    border: 1px solid red;
+    margin: 0;
+}
+
+.Table .table {
+    margin: 0;
+}
+
+.favorite {
+    color: gold;
+}
+
+.not-favorite {
+    opacity: 50%;
+    color: gray;
 }

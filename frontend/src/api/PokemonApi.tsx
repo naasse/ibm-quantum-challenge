@@ -40,7 +40,7 @@ export default class PokemonApi {
     public static find(limit?: number, offset?: number): Promise<Pokemon[]> {
         let uri = PokemonApi.getContext();
         if (!isNil(limit)) {
-           uri += `?filter[limit]=${limit}`;
+            uri += `?filter[limit]=${limit}`;
         }
         if (!isNil(offset)) {
             if (isNil(limit)) {
@@ -53,5 +53,18 @@ export default class PokemonApi {
         return AxiosUtil.makeRequest(uri, HttpMethod.GET).then((response) => {
             return response.data;
         });
+    }
+
+    /**
+     * Toggle favorite status for the Pokemon with the given ID.
+     * @param {number} id the Pokemon ID.
+     * @return {Promise<Pokemon>} the Promised updated Pokemon.
+     */
+    public static toggleFavorite(id: number): Promise<Pokemon> {
+        const uri = PokemonApi.getContext() + "/" + id + "/favorite";
+        return AxiosUtil.makeRequest(uri, HttpMethod.PUT).then((response) => {
+            return response.data;
+        });
+
     }
 }
