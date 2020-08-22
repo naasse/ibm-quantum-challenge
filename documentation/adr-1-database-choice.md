@@ -1,4 +1,4 @@
-# Architectural Decision Records (ADR) 1: Database Choice
+# Architectural Decision Record (ADR) 1: Database Choice
 
 ## Context and Problem Statement
 

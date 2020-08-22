@@ -1,6 +1,6 @@
 # IBMQuantum/backend-code-challenge
 
-This repo is an attempt at the [IBMQuantum backend code challenge](https://github.com/IBMQuantum/backend-code-challenge).
+This repo is an implementation of the [IBMQuantum backend code challenge](https://github.com/IBMQuantum/backend-code-challenge).
 
 To start the application, verify the
 [prerequisites](https://github.com/naasse/ibm-quantum-challenge/blob/master/documentation/prerequisites.md)
@@ -8,9 +8,11 @@ are satisfied then run the `setup.sh` located in this directory to build service
 
 This will start the database Docker pod, but you will need to start the services manually.
 See [setup documentation](https://github.com/naasse/ibm-quantum-challenge/blob/master/documentation/setup.md) for full instructions.
+Also see the `README` in the [api](https://github.com/naasse/ibm-quantum-challenge/tree/master/api)
+and [frontend](https://github.com/naasse/ibm-quantum-challenge/tree/master/frontend) directories.
 
 The below `README` content and the included `pokemons.json` come from the linked repository.
-Everything else was written my me to use MongoDB, Loopback.io, and ReactJS to build a simple Pokedex application.
+Everything else was created by me to use MongoDB, Loopback.io, and ReactJS to build a simple Pokedex application.
 
 # Challenges Coding Exercise Backend
 

@@ -1,4 +1,4 @@
-# Architectural Decision Records (ADR) 2: NodeJS Framework Choice
+# Architectural Decision Record (ADR) 2: NodeJS Framework Choice
 
 ## Context and Problem Statement
 
