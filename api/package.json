@@ -14,17 +14,8 @@
   "scripts": {
     "build": "lb-tsc",
     "build:watch": "lb-tsc --watch",
-    "lint": "npm run prettier:check && npm run eslint",
-    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
-    "prettier:cli": "lb-prettier \"**/*.ts\" \"**/*.js\"",
-    "prettier:check": "npm run prettier:cli -- -l",
-    "prettier:fix": "npm run prettier:cli -- --write",
-    "eslint": "lb-eslint --report-unused-disable-directives .",
-    "eslint:fix": "npm run eslint -- --fix",
-    "pretest": "npm run clean && npm run build",
-    "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
-    "posttest": "npm run lint",
-    "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
+    "pretest": "npm run build",
+    "test": "lb-mocha --allow-console-logs --require babel-core/register dist/**/*.test.js",
     "openapi-spec": "node ./dist/openapi-spec",
     "prestart": "npm run build",
     "start": "node -r source-map-support/register .",
@@ -62,11 +53,13 @@
   },
   "devDependencies": {
     "@loopback/build": "^6.2.1",
-    "source-map-support": "^0.5.19",
+    "@loopback/eslint-config": "^9.0.1",
     "@loopback/testlab": "^3.2.3",
     "@types/node": "^10.17.28",
-    "@loopback/eslint-config": "^9.0.1",
+    "babel-core": "^6.26.3",
     "eslint": "^7.7.0",
+    "mocha": "^8.1.1",
+    "source-map-support": "^0.5.19",
     "typescript": "~3.9.7"
   }
 }

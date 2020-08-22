@@ -120,7 +120,6 @@ export default class Pokedex extends React.Component<Props, State> {
         }
     }
 
-
     /**
      * Toggle the selected Pokemon favorite flag.
      * @param {number} id the ID of the Pokemon to toggle.
@@ -132,7 +131,6 @@ export default class Pokedex extends React.Component<Props, State> {
             console.error(err);
         });
     }
-
 
     /**
      * Render the Pokedex component.

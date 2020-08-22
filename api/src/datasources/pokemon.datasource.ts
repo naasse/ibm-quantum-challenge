@@ -1,3 +1,12 @@
+/******************************************************************************\
+ * Name: pokemon.datasource.ts
+ *
+ * Purpose: Define the connection to the Pokedex database where the
+ *          Pokemon collection data source is located.
+ *
+ * Author: naasse (nate.asselstine@gmail.com)
+ \******************************************************************************/
+
 import {inject, lifeCycleObserver, LifeCycleObserver} from "@loopback/core";
 import {juggler} from "@loopback/repository";
 
