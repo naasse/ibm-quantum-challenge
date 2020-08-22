@@ -8,7 +8,7 @@ docker-compose up -d
 cd ../api
 npm install
 
-# Start the frontend
+# Build the frontend
 cd ../frontend
 npm install
 

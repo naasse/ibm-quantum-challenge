@@ -31,6 +31,20 @@ DELETE  http://127.0.0.1:3210/pokemon/{id}
 PUT     http://127.0.0.1:3210/pokemon/{id}/favorite
 ```
 
+## Testing
+
+### Unit
+
+Unit testing is done with `mocha`. To run with coverage, run:
+
+```bash
+npm run test:cover
+```
+
+### Integration
+
+TBD
+
 ## Postman
 
 You may want to take advantage of the ready-made Postman dump.

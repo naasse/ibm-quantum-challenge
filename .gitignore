@@ -9,3 +9,5 @@ api/.nyc_output/
 
 # React frontend layer
 frontend/node_modules/
+frontend/cypress/screenshots/
+frontend/cypress/videos/
