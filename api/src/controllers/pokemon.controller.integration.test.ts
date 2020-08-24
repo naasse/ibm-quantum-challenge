@@ -132,6 +132,17 @@ describe("PokemonController (integration)", () => {
         });
     });
 
+    describe("getTypes()", () => {
+        it("Get the list of unique Pokemon types", async () => {
+            const types = await controller.getTypes() as string[];
+            expect(types[0]).to.equal("Grass");
+            expect(types[1]).to.equal("Poison");
+            expect(types[2]).to.equal("Fire");
+            expect(types[3]).to.equal("Flying");
+            expect(types[4]).to.equal("Water");
+        });
+    });
+
     describe("findById()", () => {
         it("finds a Pokemon by ID", async () => {
             const found = await controller.findById(expectedPokemon[0].id) as Pokemon;
@@ -141,6 +152,30 @@ describe("PokemonController (integration)", () => {
 
         it("throws an error on not found", async () => {
             const error = await controller.findById(999) as HttpError;
+            // Pop off the inner and cast to remove type. Apparently the wrapped error doesn't conform to the built-in error.
+            const innerError = error.error as any;
+            expect(error.statusCode).to.equal(404);
+            expect(error.message).to.equal("A Pokemon with the given ID was not found.");
+            expect(innerError.code).to.equal("ENTITY_NOT_FOUND");
+            expect(innerError.entityId).to.equal(999);
+            expect(innerError.entityName).to.equal("Pokemon");
+        });
+    });
+
+    describe("toggleFavoriteById()", () => {
+        it("Can toggle favorite", async () => {
+            let toggled = await controller.toggleFavoriteById(expectedPokemon[0].id) as Pokemon;
+            expect(toggled.favorite).to.equal(true);
+            let found = await controller.findById(expectedPokemon[0].id) as Pokemon;
+            expect(found.favorite).to.equal(true);
+            toggled = await controller.toggleFavoriteById(expectedPokemon[0].id) as Pokemon;
+            expect(toggled.favorite).to.equal(false);
+            found = await controller.findById(expectedPokemon[0].id) as Pokemon;
+            expect(found.favorite).to.equal(false);
+        });
+
+        it("throws an error on not found", async () => {
+            const error = await controller.toggleFavoriteById(999) as HttpError;
             // Pop off the inner and cast to remove type. Apparently the wrapped error doesn't conform to the built-in error.
             const innerError = error.error as any;
             expect(error.statusCode).to.equal(404);

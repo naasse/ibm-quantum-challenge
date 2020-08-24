@@ -11,6 +11,7 @@
 			"order": [
 				"75581f02-bd0e-4175-873b-97caf8b27a6b",
 				"bc65aa3b-9791-4a21-b0f2-35cda3f72ac3",
+				"8211390a-bff8-4141-bc55-4c99348af9a5",
 				"3bdd4bbe-6be0-4594-b5b9-840516c2580e",
 				"d646ccfd-9883-4c7f-b99a-def826de9b9f",
 				"56e031e3-ffe0-495b-9e14-a4a7ef35245c",
@@ -271,6 +272,27 @@
 					"pathVariables": {}
 				},
 				{
+					"id": "8211390a-bff8-4141-bc55-4c99348af9a5",
+					"name": "Get distinct types of Pokemon",
+					"url": "{{host}}:{{port}}/pokemon/types",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "f55a5346-d76b-4ebd-b6b2-962a1534e8d8",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
 					"id": "a4286f96-02d3-4d6b-bace-8d53b8f1c994",
 					"name": "Get a list of Pokemon with a name that begins with a specific letter",
 					"url": "{{host}}:{{port}}/pokemon?filter[where][name][like]=M",
@@ -427,7 +449,7 @@
 			]
 		},
 		{
-			"id": "82dca596-0607-48ff-9c8a-42184342c884",
+			"id": "02e3c54f-e5dd-4328-a3dd-ce865b8d0372",
 			"name": "My Workspace - globals",
 			"values": []
 		}

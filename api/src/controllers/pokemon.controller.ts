@@ -16,6 +16,7 @@ import {HttpError} from "../representations";
 import {PokemonDeletionResponseSpec, PokemonListResponseSpec, PokemonResponseSpec} from "../specs";
 import {Routes} from "../constants";
 import {isNil} from "lodash";
+import {PokemonTypesResponseSpec} from "../specs/PokemonTypesResponseSpec";
 
 export class PokemonController {
     /**
@@ -55,7 +56,7 @@ export class PokemonController {
      * @param {Filter<Pokemon>} filter [optional] the filter to apply.
      * @return {Promise<string[] | HttpError>} response containing the list of types.
      */
-    @get(Routes.POKEMON_TYPES)
+    @get(Routes.POKEMON_TYPES, PokemonTypesResponseSpec)
     async getTypes(@param.filter(Pokemon) filter?: Filter<Pokemon>): Promise<string[] | HttpError> {
         return this.repo.find(filter).then((response) => {
             const types: string[] = [];
@@ -129,18 +130,24 @@ export class PokemonController {
     async toggleFavoriteById(@param.path.number("id") id: number): Promise<Pokemon | HttpError> {
         let updated: Pokemon;
         return this.getOne(id).then((response) => {
+            if (isNil(response)) {
+                // Not Found, throw a 404
+                return this.handleError({
+                    "code": "ENTITY_NOT_FOUND",
+                    "entityName": "Pokemon",
+                    "entityId": id
+                });
+            }
             if (isNil(response.favorite)) {
                 response.favorite = true;
             } else {
                 response.favorite = !response.favorite;
             }
             updated = response;
-            return this.repo.update(updated);
-        }).then(() => {
-            // Return the Pokemon we just updated
-            return Promise.resolve(updated);
-        }).catch((err) => {
-            return this.handleError(err);
+            return this.repo.update(updated).then(() => {
+                // Return the Pokemon we just updated
+                return Promise.resolve(updated);
+            });
         });
     }
 

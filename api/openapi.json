@@ -48,6 +48,44 @@
         "operationId": "PokemonController.count"
       }
     },
+    "/pokemon/types": {
+      "get": {
+        "x-controller-name": "PokemonController",
+        "x-operation-name": "getTypes",
+        "tags": [
+          "PokemonController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Pokemon type strings",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pokemon.Filter"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "PokemonController.getTypes"
+      }
+    },
     "/pokemon/{id}/favorite": {
       "put": {
         "x-controller-name": "PokemonController",
@@ -298,7 +336,6 @@
         },
         "required": [
           "id",
-          "_id",
           "name"
         ],
         "additionalProperties": true,
@@ -378,7 +415,6 @@
         },
         "required": [
           "id",
-          "_id",
           "name"
         ],
         "additionalProperties": true,
