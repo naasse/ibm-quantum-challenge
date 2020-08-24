@@ -25,8 +25,15 @@ describe("PokemonController (integration)", () => {
     const controller = new PokemonController(repository, req, res);
 
     const expectedPokemon = [
-        new Pokemon({"id": 1, "name": "Bulbasaur"}),
-        new Pokemon({"id": 2, "name": "Ivysaur"})
+        new Pokemon({"id": 1, "name": "Bulbasaur", "types": ["Grass", "Poison"], "favorite": false}),
+        new Pokemon({"id": 2, "name": "Ivysaur", "types": ["Grass", "Poison"], "favorite": false}),
+        new Pokemon({"id": 3, "name": "Venusaur", "types": ["Grass", "Poison"], "favorite": false}),
+        new Pokemon({"id": 4, "name": "Charmander", "types": ["Fire"], "favorite": true}),
+        new Pokemon({"id": 5, "name": "Charmeleon", "types": ["Fire"], "favorite": false}),
+        new Pokemon({"id": 6, "name": "Charizard", "types": ["Fire", "Flying"], "favorite": false}),
+        new Pokemon({"id": 7, "name": "Squirtle", "types": ["Water"], "favorite": false}),
+        new Pokemon({"id": 8, "name": "Wartortle", "types": ["Water"], "favorite": false}),
+        new Pokemon({"id": 9, "name": "Blastoise", "types": ["Water"], "favorite": false})
     ];
 
     beforeEach(resetData);
@@ -35,10 +42,86 @@ describe("PokemonController (integration)", () => {
         it("finds the list of Pokemon", async () => {
             const found = await controller.find() as Pokemon[];
             expect(found.length).to.equal(expectedPokemon.length);
-            expect(found[0].id).to.equal(expectedPokemon[0].id);
             expect(found[0].name).to.equal(expectedPokemon[0].name);
-            expect(found[1].id).to.equal(expectedPokemon[1].id);
+            expect(found[0].id).to.equal(expectedPokemon[0].id);
             expect(found[1].name).to.equal(expectedPokemon[1].name);
+            expect(found[1].id).to.equal(expectedPokemon[1].id);
+        });
+
+        it("Supports pagination (first page)", async () => {
+            const limit = 5;
+            const offset = 0;
+            const filter = {
+                "limit": limit,
+                "offset": offset
+            }
+            const found = await controller.find(filter) as Pokemon[];
+            expect(found.length).to.equal(limit);
+            expect(found[0].id).to.equal(expectedPokemon[offset].id);
+            expect(found[0].name).to.equal(expectedPokemon[offset].name);
+            expect(found[1].id).to.equal(expectedPokemon[1 + offset].id);
+            expect(found[1].name).to.equal(expectedPokemon[1 + offset].name);
+        });
+
+        it("Supports pagination (second page)", async () => {
+            const limit = 5;
+            const offset = 5;
+            const filter = {
+                "limit": limit,
+                "offset": offset
+            }
+            const found = await controller.find(filter) as Pokemon[];
+            expect(found.length).to.equal(4); // Should fall short of limit on second page
+            expect(found[0].id).to.equal(expectedPokemon[offset].id);
+            expect(found[0].name).to.equal(expectedPokemon[offset].name);
+            expect(found[1].id).to.equal(expectedPokemon[1 + offset].id);
+            expect(found[1].name).to.equal(expectedPokemon[1 + offset].name);
+        });
+
+        it("Supports searching by name", async () => {
+            const searchId = 3; // Charmander
+            const filter = {
+                "where": {
+                    "name": expectedPokemon[searchId].name
+                }
+            }
+            const found = await controller.find(filter) as Pokemon[];
+            expect(found.length).to.equal(1);
+            expect(found[0].id).to.equal(expectedPokemon[searchId].id);
+            expect(found[0].name).to.equal(expectedPokemon[searchId].name);
+        });
+
+        it("Supports filtering by type", async () => {
+            let filter = {
+                "where": {
+                    "types": {
+                        "inq": ["Fire"]
+                    }
+                }
+            }
+            let found = await controller.find(filter) as Pokemon[];
+            expect(found.length).to.equal(3);
+
+            filter = {
+                "where": {
+                    "types": {
+                        "inq": ["Flying"]
+                    }
+                }
+            }
+            found = await controller.find(filter) as Pokemon[];
+            expect(found.length).to.equal(1);
+        });
+
+        it("Supports filtering by favorite", async () => {
+            const filter = {
+                "where": {
+                    "favorite": true
+                }
+            }
+            const found = await controller.find(filter) as Pokemon[];
+            expect(found.length).to.equal(1);
+            expect(found[0].name).to.equal("Charmander");
         });
     });
 
