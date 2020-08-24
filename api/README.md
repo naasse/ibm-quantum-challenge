@@ -35,15 +35,27 @@ PUT     http://127.0.0.1:3210/pokemon/{id}/favorite
 
 ### Unit
 
-Unit testing is done with `mocha`. To run with coverage, run:
+Unit testing is done with `mocha`. Run with the following command:
 
 ```bash
-npm run test:cover
+npm run test:unit
 ```
 
 ### Integration
 
-TBD
+Unit testing is done with `mocha` and starts an in-memory datasource connection. Run with the following command:
+
+```bash
+npm run test:integration
+```
+
+### Coverage
+
+To get coverage for all tests, run:
+
+```bash
+npm run test:cover
+```
 
 ## Postman
 

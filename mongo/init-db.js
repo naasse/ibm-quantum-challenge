@@ -11,7 +11,7 @@ databases = ["pokedex", "log"];
 
 // Switch to the Pokedex DB
 db = db.getSiblingDB("pokedex");
-log = db.getSiblingDB("log")
+log = db.getSiblingDB("log");
 
 // Create our Pokedex user/role
 db.createUser({

@@ -1,5 +1,6 @@
 # User-specific .idea files
 .idea/workspace.xml
+.idea/sonarlint/
 
 # Loopback mid-tier API layer
 api/node_modules/

@@ -21,7 +21,7 @@ export class PokemonController {
     /**
      * Construct the controller and inject the fields.
      *
-     * @param {PokemonRepository} repository the repository for accessing the pokemon database.
+     * @param {PokemonRepository} repo the repository for accessing the pokemon database.
      * @param {Request} req the HTTP request.
      * @param {Response} res the HTTP response.
      * @return {PokemonController} the newly constructed controller.
