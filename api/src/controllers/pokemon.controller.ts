@@ -43,14 +43,36 @@ export class PokemonController {
      */
     @get(Routes.POKEMON_LIST, PokemonListResponseSpec)
     async find(@param.filter(Pokemon) filter?: Filter<Pokemon>): Promise<Pokemon[] | HttpError> {
-        if (isNil(filter)) {
-            filter = {};
-        }
         return this.repo.find(filter).catch((err) => {
             return this.handleError(err);
         });
     }
 
+    /**
+     * Get the list of unique Pokemon types.
+     * PUT /pokemon/types
+     *
+     * @param {Filter<Pokemon>} filter [optional] the filter to apply.
+     * @return {Promise<string[] | HttpError>} response containing the list of types.
+     */
+    @get(Routes.POKEMON_TYPES)
+    async getTypes(@param.filter(Pokemon) filter?: Filter<Pokemon>): Promise<string[] | HttpError> {
+        return this.repo.find(filter).then((response) => {
+            const types: string[] = [];
+            for (const pokemon of response) {
+                if (!isNil(pokemon.types)) {
+                    for (const type of pokemon.types) {
+                        if (!types.includes(type)) {
+                            types.push(type);
+                        }
+                    }
+                }
+            }
+            return types;
+        }).catch((err) => {
+            return this.handleError(err);
+        });
+    }
 
     /**
      * Get the count of all Pokemon, subject to filtering.
@@ -61,10 +83,7 @@ export class PokemonController {
      */
     @get(Routes.POKEMON_COUNT, PokemonListResponseSpec)
     async count(@param.filter(Pokemon) filter?: Filter<Pokemon>): Promise<Count> {
-        if (isNil(filter)) {
-            filter = {};
-        }
-        return this.repo.count(filter.where);
+        return this.repo.count(filter);
     }
 
     /**

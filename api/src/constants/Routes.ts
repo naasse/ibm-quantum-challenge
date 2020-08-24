@@ -8,6 +8,7 @@
 
 export const Routes = {
     "POKEMON_LIST": "/pokemon",
+    "POKEMON_TYPES": "/pokemon/types",
     "POKEMON_COUNT": "/pokemon/count",
     "POKEMON": "/pokemon/{id}",
     "POKEMON_FAVORITE": "/pokemon/{id}/favorite"
