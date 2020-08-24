@@ -186,6 +186,19 @@ describe("PokemonController (integration)", () => {
         });
     });
 
+    describe("deleteById()", () => {
+        it("Will delete successfully", async () => {
+            await controller.deleteById(expectedPokemon[0].id);
+            const error = await controller.findById(expectedPokemon[0].id) as HttpError;
+            const innerError = error.error as any;
+            expect(error.statusCode).to.equal(404);
+            expect(error.message).to.equal("A Pokemon with the given ID was not found.");
+            expect(innerError.code).to.equal("ENTITY_NOT_FOUND");
+            expect(innerError.entityId).to.equal(expectedPokemon[0].id);
+            expect(innerError.entityName).to.equal("Pokemon");
+        });
+    });
+
     function resetData() {
         repository.deleteAll();
         repository.createAll(expectedPokemon);
